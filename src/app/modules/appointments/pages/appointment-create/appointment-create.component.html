@@ -1,0 +1,82 @@
+<app-back-button-page-container [backUrl]="'appointments/list'">
+  <p class="text-center text-3xl">Crear nueva cita</p>
+  <form
+    [formGroup]="appointmentForm"
+    (ngSubmit)="submitForm()"
+    class="max-w-md mx-auto p-4 bg-white shadow-md rounded-md"
+  >
+    <div class="mb-4">
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Fecha de la cita</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Hora de la cita</mat-label>
+        <input matInput type="time" formControlName="time" required />
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Buscar Paciente</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="searchControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="onPatientSelected($event.option.value)"
+        >
+          <mat-option
+            *ngFor="let patient of filteredPatients | async"
+            [value]="patient"
+          >
+            {{ patient.persoInfo.name }} {{ patient.persoInfo.surname }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field class="w-full">
+        <mat-label>Selecciona un Nutricionista</mat-label>
+        <mat-select
+          formControlName="nutritionistId"
+          (selectionChange)="onNutritionistSelected($event)"
+        >
+          <mat-option
+            *ngFor="let nutritionist of nutritionists"
+            [value]="nutritionist.id"
+          >
+            {{ nutritionist.persoInfo.name }}
+            {{ nutritionist.persoInfo.surname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+    >
+      Crear Cita
+    </button>
+  </form>
+  <div *ngIf="creationMessage" class="mt-4 text-center text-green-600">
+    {{ creationMessage }}
+  </div>
+</app-back-button-page-container>

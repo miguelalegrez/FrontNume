@@ -1,0 +1,45 @@
+<header class="flex justify-between items-center mb-10 bg-zinc-950 px-6 py-3">
+  <div class="flex items-center">
+    <!-- Logo -->
+    <img
+      src="http://localhost:4200/assets/media/img/logo-web-dark.png"
+      alt="Logo"
+      class="h-12 w-auto mr-6"
+      [routerLink]="'/home'"
+    />
+    <!-- Menú -->
+    <div class="menu-container flex items-center">
+      <a [routerLink]="'/appointments'" class="mr-4 text-base text-white"
+        >Citas</a
+      >
+      <a [routerLink]="'/nutritionists'" class="mr-4 text-base text-white"
+        >Nutricionistas</a
+      >
+      <a [routerLink]="'/patients'" class="mr-4 text-base text-white"
+        >Pacientes</a
+      >
+    </div>
+  </div>
+
+  <!-- Botones de Login/Register 
+  <div class="flex items-center">
+    <ng-container *ngIf="user; else loginButton">
+      {{ user.name }}
+    </ng-container>
+    <ng-template #loginButton>
+      <a [routerLink]="'/auth/login'" class="mr-2">
+        <button class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg">
+          Login
+        </button>
+      </a>
+      <a [routerLink]="'/auth/register'">
+        <button class="bg-green-600 text-white px-4 py-2 rounded-lg">
+          Registrarse
+        </button>
+      </a>
+    </ng-template>
+  </div>
+</header>
+<!-- Separador -->
+  <div class="mb-10"></div>
+</header>

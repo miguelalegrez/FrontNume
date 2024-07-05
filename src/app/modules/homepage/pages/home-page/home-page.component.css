@@ -1,0 +1,30 @@
+.banner-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+.max-w-screen-md {
+  max-width: 768px;
+}
+
+.max-w-screen-lg {
+  max-width: 1024px;
+}

@@ -1,0 +1,53 @@
+<app-back-button-page-container [backUrl]="'/patients/detail/' + patientId">
+  <form
+    [formGroup]="modifyForm"
+    (ngSubmit)="submitForm()"
+    class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  >
+    <div class="mb-4">
+      <label
+        for="registryType"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Tipo de Registro</label
+      >
+      <select
+        id="registryType"
+        formControlName="registryType"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      >
+        <option value="Primera Cita">Primera Cita</option>
+        <option value="Revisión">Revisión</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label
+        for="observations"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Observaciones</label
+      >
+      <textarea
+        id="observations"
+        formControlName="observations"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32 resize-none"
+      ></textarea>
+    </div>
+    <div class="mb-6">
+      <label for="patientId" class="block text-gray-700 text-sm font-bold mb-2"
+        >ID del Paciente</label
+      >
+      <input
+        id="patientId"
+        formControlName="patientId"
+        type="text"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <button
+      type="submit"
+      [disabled]="!modifyForm.valid"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Guardar Cambios
+    </button>
+  </form>
+</app-back-button-page-container>

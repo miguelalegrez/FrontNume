@@ -1,0 +1,28 @@
+<p class="text-center text-3xl mb-5">Login</p>
+<form
+  [formGroup]="loginForm"
+  (submit)="onLogin($event)"
+  class="flex flex-col w-96 mx-auto"
+>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" />
+  </mat-form-field>
+  <button mat-stroked-button color="primary">Login</button>
+</form>
+<div class="mb-1"></div>
+<div class="flex flex-col w-96 mx-auto">
+  <button [routerLink]="['/auth/register']" mat-flat-button color="primary">
+    Regístrate
+  </button>
+</div>
+
+<ng-container *ngIf="errorMessage"
+  ><p class="text-center">
+    {{ errorMessage }}
+  </p></ng-container
+>

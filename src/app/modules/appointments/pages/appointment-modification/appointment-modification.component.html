@@ -1,0 +1,98 @@
+<p class="text-center text-3xl">Modificación de Cita</p>
+<app-back-button-page-container
+  [backUrl]="'/appointments/detail/' + appointmentId"
+>
+  <form
+    [formGroup]="appointmentForm"
+    (ngSubmit)="submitForm()"
+    class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  >
+    <div class="mb-4">
+      <label for="date" class="block text-gray-700 text-sm font-bold mb-2"
+        >Fecha</label
+      >
+      <input
+        id="date"
+        formControlName="date"
+        type="date"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="time" class="block text-gray-700 text-sm font-bold mb-2"
+        >Hora</label
+      >
+      <input
+        id="time"
+        formControlName="time"
+        type="time"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div class="mb-4">
+      <label
+        for="nutritionistId"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Nutricionista</label
+      >
+      <mat-form-field class="w-full">
+        <mat-label>Selecciona un Nutricionista</mat-label>
+        <mat-select formControlName="nutritionistId">
+          <mat-option
+            *ngFor="let nutritionist of nutritionists"
+            [value]="nutritionist.id"
+          >
+            {{ nutritionist.persoInfo.name }}
+            {{ nutritionist.persoInfo.surname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="mb-4">
+      <label
+        for="patientName"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Nombre del Paciente</label
+      >
+      <input
+        id="patientName"
+        formControlName="patientName"
+        type="text"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div class="mb-4">
+      <label
+        for="patientSurname"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Apellido del Paciente</label
+      >
+      <input
+        id="patientSurname"
+        formControlName="patientSurname"
+        type="text"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div class="mb-4">
+      <label
+        for="patientDocument"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Documento del Paciente</label
+      >
+      <input
+        id="patientDocument"
+        formControlName="patientDocument"
+        type="text"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <button
+      type="submit"
+      [disabled]="!appointmentForm.valid"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Guardar Cambios
+    </button>
+  </form>
+</app-back-button-page-container>

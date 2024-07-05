@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+  }
+  
+  .banner-container {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  
+  .banner-img {
+    width: 100%;
+    height: auto;
+  }
+
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+  

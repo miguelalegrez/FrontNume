@@ -1,0 +1,44 @@
+<app-back-button-page-container [backUrl]="'/appointments/list'">
+  <div class="max-w-3xl mx-auto mt-8">
+    <div class="flex justify-end items-center mb-4">
+      <app-modification-box
+        *ngIf="appointment"
+        [id]="appointment.id"
+        [entityType]="'appointment'"
+      ></app-modification-box>
+      <app-delete-box
+        [entityName]="'cita'"
+        (delete)="deleteAppointment()"
+      ></app-delete-box>
+    </div>
+
+    <!-- Appointment Details -->
+    <div class="bg-white shadow-md rounded-lg p-6 mt-4">
+      <div class="mb-4">
+        <p class="text-lg font-bold mb-2">Detalles de la Cita</p>
+        <div class="grid grid-cols-2 gap-x-8">
+          <p class="text-gray-600">ID:</p>
+          <p>{{ appointment.id }}</p>
+          <p class="text-gray-600">Fecha:</p>
+          <p>{{ appointment.date | date : "medium" }}</p>
+          <p class="text-gray-600">ID Paciente:</p>
+          <p>{{ appointment.patientId }}</p>
+          <p class="text-gray-600">Nombre Paciente:</p>
+          <p>{{ appointment.patientName }}</p>
+          <p class="text-gray-600">Apellido Paciente:</p>
+          <p>{{ appointment.patientSurname }}</p>
+          <p class="text-gray-600">DNI Paciente:</p>
+          <p>{{ appointment.patientDocument }}</p>
+          <p class="text-gray-600">ID Nutricionista:</p>
+          <p>{{ appointment.nutritionistId }}</p>
+          <p class="text-gray-600">Nombre Nutricionista:</p>
+          <p>{{ appointment.nutritionistName }}</p>
+          <p class="text-gray-600">Apellido Nutricionista:</p>
+          <p>{{ appointment.nutritionistSurname }}</p>
+          <p class="text-gray-600">DNI Nutricionista:</p>
+          <p>{{ appointment.nutritionistDocument }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-back-button-page-container>

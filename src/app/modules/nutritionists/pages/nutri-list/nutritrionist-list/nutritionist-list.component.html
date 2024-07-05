@@ -1,0 +1,10 @@
+<app-filter-box (filterChanged)="onFilterChanged($event)"></app-filter-box>
+<app-table
+  [dataSource]="dataSource"
+  [displayedColumns]="displayedColumns"
+  [pageLength]="paginator ? paginator.length : 0"
+  [pageSize]="20"
+  (pageChange)="onPageChange($event)"
+  (rowClick)="onClickElement($event.id)"
+>
+</app-table>

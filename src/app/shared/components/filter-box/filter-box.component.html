@@ -1,0 +1,23 @@
+<form
+  [formGroup]="form"
+  class="flex justify-between items-center mb-5 ml-5 mr-5"
+>
+  <div class="flex items-center space-x-4">
+    <mat-form-field class="w-2/4 min-w-[300px]">
+      <mat-label>Tipo de Búsqueda</mat-label>
+      <mat-select formControlName="searchType">
+        <mat-option value="nameSurname">Nombre y Apellido</mat-option>
+        <mat-option value="document">Documento</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-1/2 min-w-[300px]">
+      <mat-label>Filtrar</mat-label>
+      <input
+        matInput
+        formControlName="filterValue"
+        placeholder="Búsqueda por nombre y apellido o documento"
+      />
+    </mat-form-field>
+    <mat-icon>search</mat-icon>
+  </div>
+</form>

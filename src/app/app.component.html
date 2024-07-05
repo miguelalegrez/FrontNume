@@ -1,0 +1,8 @@
+<app-header></app-header>
+<app-sub-header></app-sub-header>
+<div *ngIf="isHomePage">
+  <router-outlet></router-outlet>
+</div>
+<div *ngIf="!isHomePage" class="max-w-7xl mx-auto p-4">
+  <router-outlet></router-outlet>
+</div>

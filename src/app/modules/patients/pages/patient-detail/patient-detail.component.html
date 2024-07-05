@@ -1,0 +1,170 @@
+<app-back-button-page-container [backUrl]="'patients/list'">
+  <div class="flex space-x-4">
+    <app-modification-box [id]="patient.id" [entityType]="'patient'">
+      ></app-modification-box
+    >
+    <app-delete-box
+      [id]="patient.id"
+      [entityName]="'patient'"
+      (delete)="deletePatient()"
+    ></app-delete-box>
+  </div>
+  <div class="flex justify-end items-center mb-4">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/patients/detail', patient.id, 'create-registry']"
+    >
+      Añadir registro
+    </button>
+  </div>
+
+  <div *ngIf="patient">
+    <h2 class="text-3xl text-center">
+      {{ patient.persoInfo.name }} {{ patient.persoInfo.surname }}
+    </h2>
+    <div class="mt-4">
+      <mat-tab-group>
+        <mat-tab label="Información">
+          <div class="p-4">
+            <p><strong>Nombre:</strong> {{ patient.persoInfo.name }}</p>
+            <p><strong>Apellido:</strong> {{ patient.persoInfo.surname }}</p>
+            <p><strong>Documento:</strong> {{ patient.persoInfo.document }}</p>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Citas">
+          <ng-template mat-tab-label>
+            Citas
+            <span
+              class="ml-5"
+              matBadge="{{ activeAppointmentsCount }}"
+              matBadgeHidden="{{ activeAppointmentsCount === 0 }}"
+              matBadgeColor="primary"
+            ></span>
+          </ng-template>
+          <div class="p-4">
+            <table
+              mat-table
+              [dataSource]="appointmentsDataSource"
+              class="mat-elevation-z8 w-full"
+            >
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let appointment">
+                  {{ appointment.id }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                <td mat-cell *matCellDef="let appointment">
+                  {{ appointment.date }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nutritionistName">
+                <th mat-header-cell *matHeaderCellDef>
+                  Nombre del Nutricionista
+                </th>
+                <td mat-cell *matCellDef="let appointment">
+                  {{ appointment.nutritionistName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nutritionistSurname">
+                <th mat-header-cell *matHeaderCellDef>
+                  Apellido del Nutricionista
+                </th>
+                <td mat-cell *matCellDef="let appointment">
+                  {{ appointment.nutritionistSurname }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let appointment">
+                  <a
+                    [routerLink]="['/appointments/detail/', appointment.id]"
+                    class="text-blue-500 hover:underline"
+                  >
+                    Ver detalles
+                  </a>
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="appointmentDisplayedColumns"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: appointmentDisplayedColumns"
+              ></tr>
+            </table>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Registros">
+          <ng-template mat-tab-label> Registros </ng-template>
+          <div class="p-4">
+            <table
+              mat-table
+              [dataSource]="registryDataSource"
+              class="mat-elevation-z8 w-full"
+            >
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let registry">
+                  {{ registry.id }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                <td mat-cell *matCellDef="let registry">
+                  {{ registry.date }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="registryType">
+                <th mat-header-cell *matHeaderCellDef>Tipo de Registro</th>
+                <td mat-cell *matCellDef="let registry">
+                  {{ translateRegistryType(registry.registryType) }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="observations">
+                <th mat-header-cell *matHeaderCellDef>Observaciones</th>
+                <td mat-cell *matCellDef="let registry">
+                  {{ registry.observations }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let registry">
+                  <a
+                    [routerLink]="['/patient-registry/detail/', registry.id]"
+                    class="text-blue-500 hover:underline"
+                  >
+                    Ver detalles
+                  </a>
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="registryDisplayedColumns"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: registryDisplayedColumns"
+              ></tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</app-back-button-page-container>

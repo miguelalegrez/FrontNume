@@ -1,0 +1,24 @@
+<div class="flex justify-between items-center mb-5 ml-5 mr-5">
+  <div class="flex items-center">
+    <mat-form-field class="w-1/1">
+      <mat-label>Filtrar por documento</mat-label>
+      <input
+        matInput
+        (keyup)="applyDocumentFilter($event)"
+        placeholder="Buscar por documento"
+        #documentInput
+      />
+    </mat-form-field>
+    <mat-icon class="ml-6">search</mat-icon>
+  </div>
+</div>
+
+<app-table
+  [dataSource]="dataSource"
+  [displayedColumns]="displayedColumns"
+  [pageLength]="paginator ? paginator.length : 0"
+  [pageSize]="20"
+  (pageChange)="onPageChange($event)"
+  (rowClick)="onClickElement($event.id)"
+>
+</app-table>

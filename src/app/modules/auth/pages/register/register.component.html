@@ -1,0 +1,26 @@
+<div class="mb-8">
+  <p class="text-center text-3xl">Regístrate en NuMeApp.</p>
+</div>
+<form
+  [formGroup]="registerForm"
+  (submit)="onRegister($event)"
+  class="flex flex-col w-96 mx-auto"
+>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="Nombre" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Apellido</mat-label>
+    <input matInput placeholder="Apellido" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" />
+  </mat-form-field>
+  <button mat-flat-button color="primary">Regístrate</button>
+</form>

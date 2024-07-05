@@ -1,0 +1,36 @@
+<app-back-button-page-container
+  [backUrl]="'/patients/detail/' + registry?.patientId"
+>
+  <div class="max-w-3xl mx-auto mt-8">
+    <div class="flex justify-end items-center mb-4">
+      <app-modification-box
+        *ngIf="registry"
+        [id]="registry.id"
+        [entityType]="'registry'"
+      ></app-modification-box>
+      <app-delete-box
+        [entityName]="'registro'"
+        (delete)="deleteRegistry()"
+      ></app-delete-box>
+    </div>
+
+    <!-- Registry Details -->
+    <div *ngIf="registry" class="bg-white shadow-md rounded-lg p-6 mt-4">
+      <div class="mb-4">
+        <p class="text-lg font-bold mb-2">Detalles del Registro</p>
+        <div class="grid grid-cols-2 gap-x-8">
+          <p class="text-gray-600">ID:</p>
+          <p>{{ registry.id }}</p>
+          <p class="text-gray-600">Fecha:</p>
+          <p>{{ registry.date }}</p>
+          <p class="text-gray-600">ID Paciente:</p>
+          <p>{{ registry.patientId }}</p>
+          <p class="text-gray-600">Tipo de Registro:</p>
+          <p>{{ translateRegistryType(registry.registryType) }}</p>
+          <p class="text-gray-600">Observaciones:</p>
+          <p>{{ registry.observations }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-back-button-page-container>
