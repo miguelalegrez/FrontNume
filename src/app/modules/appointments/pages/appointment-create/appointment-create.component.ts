@@ -112,14 +112,15 @@ export class AppointmentCreateComponent implements OnInit {
   submitForm() {
     if (this.appointmentForm.valid) {
       const formValues = this.appointmentForm.value;
-
-      // Crear un nuevo objeto Date basado en la fecha y hora del formulario
-      const date = new Date(formValues.date);
-      const timeParts = formValues.time.split(":"); // Dividir la hora en horas y minutos
-      date.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]));
+      const combinedDateTime = moment(formValues.date)
+        .set({
+          hour: moment(formValues.time, "HH:mm").hour(),
+          minute: moment(formValues.time, "HH:mm").minute(),
+        })
+        .toISOString();
 
       const newAppointment = {
-        date: date, // Enviamos directamente el objeto Date
+        date: combinedDateTime,
         patientId: formValues.patientId,
         nutritionistId: formValues.nutritionistId,
       };
@@ -132,7 +133,7 @@ export class AppointmentCreateComponent implements OnInit {
         },
         error: (error) => {
           console.error("Error al crear la cita:", error);
-          this.showSnackBar("Error al crear la cita", "Error");
+          this.showSnackBar("Error al crear la cita", "Error"); // Mensaje de error con Snackbar
         },
       });
     } else {
@@ -140,7 +141,7 @@ export class AppointmentCreateComponent implements OnInit {
       this.showSnackBar(
         "Formulario inválido. Revise los datos ingresados.",
         "Error"
-      );
+      ); // Mensaje de formulario inválido
     }
   }
 
