@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { AuthService } from "./core/services/auth.service";
-import { FooterComponent } from "./shared/components/footer/footer.component";
 import { HeaderComponent } from "./shared/components/header/header.component";
 import { SubHeaderComponent } from "./shared/components/sub-header/sub-header.component";
 import { SharedModule } from "./shared/shared.module";
@@ -18,7 +17,6 @@ import { SharedModule } from "./shared/shared.module";
     CommonModule,
     SubHeaderComponent,
     SharedModule,
-    FooterComponent,
   ],
 })
 export class AppComponent implements OnInit {
