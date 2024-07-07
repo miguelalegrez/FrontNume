@@ -27,6 +27,12 @@ import moment from "moment";
   styleUrls: ["./appointment-create.component.css"],
 })
 export class AppointmentCreateComponent implements OnInit {
+  searchPatientById() {
+    throw new Error("Method not implemented.");
+  }
+  patient(patient: any) {
+    throw new Error("Method not implemented.");
+  }
   appointmentForm: FormGroup;
   creationMessage: string = "";
   nutritionists: Nutritionist[] = [];

@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Nutritionist } from "../../../models/nutritionist.model";
-import { NutritionistService } from "../../../services/nutritionist.service";
+import { Nutritionist } from "../../models/nutritionist.model";
+import { NutritionistService } from "../../services/nutritionist.service";
 
 @Component({
   selector: "app-nutritionist-detail",

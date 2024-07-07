@@ -16,10 +16,10 @@ import { BackButtonPageContainerComponent } from "../../shared/components/button
 import { SharedModule } from "../../shared/shared.module";
 import { AppointmentsRoutingModule } from "../appointments/appointments.routing.module";
 import { AuthModule } from "../auth/auth.module";
-import { PatientRegistryCreateComponent } from "./pages/patient-registry-create/patient-registry-create.component";
-import { PatientRegistryDetailComponent } from "./pages/patient-registry-detail/patient-registry-detail.component";
+import { PatientRegistryCreateComponent } from "./pages/create/patient-registry-create.component";
+import { PatientRegistryDetailComponent } from "./pages/detail/patient-registry-detail.component";
 import { PatientRegistryRoutingModule } from "./patient-registry-routing.module";
-import { PatientRegistryModificationComponent } from "./pages/patient-registry-modification/patient-registry-modification.component";
+import { PatientRegistryModificationComponent } from "./pages/modification/patient-registry-modification.component";
 import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({

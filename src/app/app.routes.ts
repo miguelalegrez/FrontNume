@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
-import { AppointmentCreateComponent } from "./modules/appointments/pages/appointment-create/appointment-create.component";
-import { PatientListComponent } from "./modules/patients/pages/patient-list/patient-list.component";
+import { PatientListComponent } from "./modules/patients/pages/list/patient-list.component";
 import { HomePageComponent } from "./modules/homepage/pages/home-page/home-page.component";
+import { AppointmentCreateComponent } from "./modules/appointments/pages/create/appointment-create.component";
 export const routes: Routes = [
   {
     path: "",

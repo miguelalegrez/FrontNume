@@ -15,10 +15,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatBadgeModule } from "@angular/material/badge";
 import { AuthModule } from "../auth/auth.module";
 import { NutritionistsRoutingModule } from "./nutritionists.routing.module";
-import { NutritionistDetailComponent } from "./pages/nutri-detail/nutritionist-detail/nutritionist-detail.component";
-import { NutritionistListComponent } from "./pages/nutri-list/nutritrionist-list/nutritionist-list.component";
-import { NutritionistModificationComponent } from "./pages/nutritionist-modification/nutritionist-modification.component";
+import { NutritionistListComponent } from "./pages/list/nutritionist-list.component";
+import { NutritionistModificationComponent } from "./pages/modification/nutritionist-modification.component";
 import { MatSelectModule } from "@angular/material/select";
+import { NutritionistDetailComponent } from "./pages/detail/nutritionist-detail.component";
 
 @NgModule({
   declarations: [

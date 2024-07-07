@@ -1,11 +1,11 @@
 // patients-routing.module.ts
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PatientRegistryCreateComponent } from "../patient-registry/pages/patient-registry-create/patient-registry-create.component";
-import { UserCreateComponent } from "../user-creation/pages/user-create-form/user-create.component";
-import { PatientDetailComponent } from "./pages/patient-detail/patient-detail.component";
-import { PatientListComponent } from "./pages/patient-list/patient-list.component";
-import { PatientModificationComponent } from "./pages/patient-modification/patient-modification.component";
+import { PatientRegistryCreateComponent } from "../patient-registry/pages/create/patient-registry-create.component";
+import { UserCreateComponent } from "../user-creation/pages/form/user-create.component";
+import { PatientDetailComponent } from "./pages/detail/patient-detail.component";
+import { PatientListComponent } from "./pages/list/patient-list.component";
+import { PatientModificationComponent } from "./pages/modification/patient-modification.component";
 
 const routes: Routes = [
   { path: "list", component: PatientListComponent },

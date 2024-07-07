@@ -14,10 +14,10 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { SharedRoutingModule } from "../../shared/shared-routing.module";
 import { SharedModule } from "../../shared/shared.module";
 import { AuthModule } from "../auth/auth.module";
-import { PatientDetailComponent } from "./pages/patient-detail/patient-detail.component";
-import { PatientListComponent } from "./pages/patient-list/patient-list.component";
+import { PatientDetailComponent } from "./pages/detail/patient-detail.component";
+import { PatientListComponent } from "./pages/list/patient-list.component";
 import { PatientsRoutingModule } from "./patients.routing.module";
-import { PatientModificationComponent } from "./pages/patient-modification/patient-modification.component";
+import { PatientModificationComponent } from "./pages/modification/patient-modification.component";
 import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({

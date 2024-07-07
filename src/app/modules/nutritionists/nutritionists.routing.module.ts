@@ -1,10 +1,10 @@
 // patients-routing.module.ts
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { UserCreateComponent } from "../user-creation/pages/user-create-form/user-create.component";
-import { NutritionistDetailComponent } from "./pages/nutri-detail/nutritionist-detail/nutritionist-detail.component";
-import { NutritionistListComponent } from "./pages/nutri-list/nutritrionist-list/nutritionist-list.component";
-import { NutritionistModificationComponent } from "./pages/nutritionist-modification/nutritionist-modification.component";
+import { UserCreateComponent } from "../user-creation/pages/form/user-create.component";
+import { NutritionistListComponent } from "./pages/list/nutritionist-list.component";
+import { NutritionistModificationComponent } from "./pages/modification/nutritionist-modification.component";
+import { NutritionistDetailComponent } from "./pages/detail/nutritionist-detail.component";
 
 const routes: Routes = [
   { path: "list", component: NutritionistListComponent },

@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute, Router } from "@angular/router";
 import { of } from "rxjs";
-import { AppointmentService } from "../../../services/appointment.service";
 import { AppointmentsDetailComponent } from "./appointments-detail.component";
-import { Appointment } from "../../../models/appointment.model";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { RouterTestingModule } from "@angular/router/testing";
+import { Appointment } from "../../models/appointment.model";
+import { AppointmentService } from "../../services/appointment.service";
 
 describe("AppointmentsDetailComponent", () => {
   let component: AppointmentsDetailComponent;

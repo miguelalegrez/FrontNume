@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { of, throwError } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -8,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NutritionistModificationComponent } from "./nutritionist-modification.component";
 import { NutritionistService } from "../../services/nutritionist.service";
 import { Nutritionist } from "../../models/nutritionist.model";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe("NutritionistModificationComponent", () => {
   let component: NutritionistModificationComponent;

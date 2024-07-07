@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PatientRegistryCreateComponent } from "./pages/patient-registry-create/patient-registry-create.component";
-import { PatientRegistryDetailComponent } from "./pages/patient-registry-detail/patient-registry-detail.component";
-import { PatientRegistryModificationComponent } from "./pages/patient-registry-modification/patient-registry-modification.component";
+import { PatientRegistryCreateComponent } from "./pages/create/patient-registry-create.component";
+import { PatientRegistryDetailComponent } from "./pages/detail/patient-registry-detail.component";
+import { PatientRegistryModificationComponent } from "./pages/modification/patient-registry-modification.component";
 
 const routes: Routes = [
   {

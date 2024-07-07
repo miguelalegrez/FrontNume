@@ -18,11 +18,11 @@ import { SharedModule } from "../../shared/shared.module";
 import { AuthModule } from "../auth/auth.module";
 import { BackButtonPageContainerComponent } from "../../shared/components/buttons/back-button-page-container/back-button-page-container.component";
 
-import { AppointmentCreateComponent } from "./pages/appointment-create/appointment-create.component";
-import { AppointmentModificationComponent } from "./pages/appointment-modification/appointment-modification.component";
 import { AppointmentsRoutingModule } from "./appointments.routing.module";
-import { AppointmentsDetailComponent } from "./pages/appoint-detail/appointments-detail/appointments-detail.component";
-import { AppointmentsListComponent } from "./pages/appoint-list/appointments-list/appointments-list.component";
+import { AppointmentCreateComponent } from "./pages/create/appointment-create.component";
+import { AppointmentModificationComponent } from "./pages/modification/appointment-modification.component";
+import { AppointmentsDetailComponent } from "./pages/detail/appointments-detail.component";
+import { AppointmentsListComponent } from "./pages/list/appointments-list.component";
 
 @NgModule({
   declarations: [
