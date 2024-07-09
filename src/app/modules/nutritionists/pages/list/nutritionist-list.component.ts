@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
@@ -12,21 +12,23 @@ import { debounceTime, distinctUntilChanged } from "rxjs/operators";
   templateUrl: "./nutritionist-list.component.html",
   styleUrls: ["./nutritionist-list.component.css"],
 })
-export class NutritionistListComponent implements OnInit {
+export class NutritionistListComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource<Nutritionist>();
   public displayedColumns: string[] = [
     "persoInfo.document",
     "persoInfo.name",
     "persoInfo.surname",
   ];
-  public searchType: string = "nameSurname"; // Default search type
-  public filterValue: string = ""; // Define filterValue property
+  public searchType: string = "nameSurname";
+  public filterValue: string = "";
   private searchTerms = new Subject<{
     searchType: string;
     filterValue: string;
-  }>(); // Subject to handle search terms
+  }>();
+  public pageSize = 20;
+  public totalElements = 0;
 
-  @ViewChild(MatPaginator) public paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private _router: Router,
@@ -34,21 +36,23 @@ export class NutritionistListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getNutritionists(0, 20);
+    this.getNutritionists(0, this.pageSize);
     this.setupSearch();
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
   getNutritionists(page: number, size: number): void {
     this._nutritionistService.getNutritionists(page, size).subscribe({
-      next: (value) => {
-        if (value && value.content) {
-          this.dataSource.data = value.content;
-          if (this.paginator) {
-            this.paginator.length = value.totalElements;
-          }
+      next: (response) => {
+        if (response && response.content) {
+          this.dataSource.data = response.content;
+          this.totalElements = response.totalElements;
+          this.updatePaginator();
         } else {
-          console.error("Invalid response structure", value);
+          console.error("Invalid response structure", response);
         }
       },
       error: (err) => {
@@ -57,73 +61,42 @@ export class NutritionistListComponent implements OnInit {
     });
   }
 
-  public onClickElement(id: string): void {
-    this._router.navigateByUrl("nutritionists/detail/" + id);
-  }
-
-  public onPageChange(event: any): void {
-    if (this.searchType === "nameSurname" && this.filterValue) {
-      const [name, surname] = this.filterValue.split(" ");
-      this.searchNutritionistsByNameAndSurname(
-        name,
-        surname,
-        event.pageIndex,
-        event.pageSize
-      );
-    } else if (this.searchType === "document" && this.filterValue) {
-      this.searchNutritionistByDocument(
-        this.filterValue,
-        event.pageIndex,
-        event.pageSize
-      );
+  updatePaginator() {
+    if (this.paginator) {
+      this.paginator.length = this.totalElements;
     } else {
-      this.getNutritionists(event.pageIndex, event.pageSize);
+      setTimeout(() => this.updatePaginator(), 100);
     }
   }
 
-  public onFilterChanged(event: {
-    searchType: string;
-    filterValue: string;
-  }): void {
+  onFilterChanged(event: { searchType: string; filterValue: string }): void {
     this.searchType = event.searchType;
     this.filterValue = event.filterValue.trim().toLowerCase();
-    this.searchTerms.next({
-      searchType: this.searchType,
-      filterValue: this.filterValue,
-    });
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    this.searchTerms.next(event);
+    if (this.paginator) {
+      this.paginator.firstPage();
     }
   }
 
   private setupSearch(): void {
     this.searchTerms
-      .pipe(
-        debounceTime(300), // Wait 300ms after each keystroke before considering the term
-        distinctUntilChanged(
-          (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
-        ) // Ignore new term if same as previous term
-      )
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe(({ searchType, filterValue }) => {
-        if (filterValue) {
-          if (searchType === "nameSurname") {
-            const [name, surname] = filterValue.split(" ");
-            this.searchNutritionistsByNameAndSurname(
-              name,
-              surname || "",
-              0,
-              20
-            );
-          } else if (searchType === "document") {
-            this.searchNutritionistByDocument(filterValue, 0, 20);
-          }
-        } else {
-          this.getNutritionists(0, 20);
+        const [name, surname] = filterValue.split(" ");
+        if (searchType === "nameSurname") {
+          this.getNutritionistsByNameAndSurname(
+            name,
+            surname || "",
+            0,
+            this.pageSize
+          );
+        } else if (searchType === "document") {
+          this.getNutritionistsByDocument(filterValue, 0, this.pageSize);
         }
       });
   }
 
-  private searchNutritionistsByNameAndSurname(
+  getNutritionistsByNameAndSurname(
     name: string,
     surname: string,
     page: number,
@@ -131,46 +104,47 @@ export class NutritionistListComponent implements OnInit {
   ): void {
     this._nutritionistService
       .searchNutritionistByNameAndSurname(name, surname, page, size)
-      .subscribe({
-        next: (value) => {
-          if (value && value.content) {
-            this.dataSource.data = value.content;
-            if (this.paginator) {
-              this.paginator.length = value.totalElements;
-            }
-          } else {
-            console.error("Invalid response structure", value);
-          }
-        },
-        error: (err) => {
-          console.error(
-            "Error fetching nutritionists by name and surname",
-            err
-          );
-        },
+      .subscribe((data) => {
+        this.handleResponse(data);
       });
   }
 
-  private searchNutritionistByDocument(
+  getNutritionistsByDocument(
     document: string,
     page: number,
     size: number
   ): void {
-    this._nutritionistService.getNutritionistByDocument(document).subscribe({
-      next: (nutritionist) => {
-        if (nutritionist) {
-          this.dataSource.data = [nutritionist];
-          if (this.paginator) {
-            this.paginator.length = 1;
-          }
-        } else {
-          this.dataSource.data = [];
-        }
-      },
-      error: (err) => {
-        console.error("Error fetching nutritionist by document", err);
-        this.dataSource.data = [];
-      },
-    });
+    this._nutritionistService
+      .getNutritionistByDocument(document)
+      .subscribe((data) => {
+        this.handleResponse(data);
+      });
+  }
+
+  handleResponse(data: any) {
+    if (data && data.content) {
+      this.dataSource.data = data.content;
+      this.totalElements = data.totalElements;
+      this.updatePaginator();
+    } else {
+      console.error("Invalid response structure", data);
+    }
+  }
+
+  public onClickElement(id: string): void {
+    this._router.navigateByUrl("nutritionists/detail/" + id);
+  }
+
+  public onPageChange(event: any): void {
+    const pageIndex = event.pageIndex;
+    const pageSize = event.pageSize;
+    const [name, surname] = this.filterValue.split(" ");
+    if (this.searchType === "nameSurname" && this.filterValue) {
+      this.getNutritionistsByNameAndSurname(name, surname, pageIndex, pageSize);
+    } else if (this.searchType === "document" && this.filterValue) {
+      this.getNutritionistsByDocument(this.filterValue, pageIndex, pageSize);
+    } else {
+      this.getNutritionists(pageIndex, pageSize);
+    }
   }
 }

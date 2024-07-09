@@ -16,9 +16,8 @@
 <app-table
   [dataSource]="dataSource"
   [displayedColumns]="displayedColumns"
-  [pageLength]="paginator ? paginator.length : 0"
+  [pageLength]="totalElements"
   [pageSize]="20"
   (pageChange)="onPageChange($event)"
   (rowClick)="onClickElement($event.id)"
->
-</app-table>
+></app-table>

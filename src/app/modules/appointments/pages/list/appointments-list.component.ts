@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
@@ -12,7 +12,7 @@ import { AppointmentService } from "../../services/appointment.service";
   templateUrl: "./appointments-list.component.html",
   styleUrls: ["./appointments-list.component.css"],
 })
-export class AppointmentsListComponent implements OnInit {
+export class AppointmentsListComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource<Appointment>();
   public page?: Page<Appointment>;
   public displayedColumns: string[] = [
@@ -24,6 +24,9 @@ export class AppointmentsListComponent implements OnInit {
     "nutritionistSurname",
   ];
 
+  public pageSize = 20;
+  public totalElements = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -33,7 +36,10 @@ export class AppointmentsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAppointments(0, 20);
+    this.getAppointments(0, this.pageSize);
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
@@ -49,9 +55,8 @@ export class AppointmentsListComponent implements OnInit {
               : null, // Manejo de fecha nula
           }));
           this.dataSource.data = formattedAppointments;
-          if (this.paginator) {
-            this.paginator.length = value.totalElements;
-          }
+          this.totalElements = value.totalElements;
+          this.updatePaginator();
         } else {
           console.error("Invalid response structure", value);
         }
@@ -60,6 +65,14 @@ export class AppointmentsListComponent implements OnInit {
         console.error("Error fetching appointments", err);
       },
     });
+  }
+
+  updatePaginator() {
+    if (this.paginator) {
+      this.paginator.length = this.totalElements;
+    } else {
+      setTimeout(() => this.updatePaginator(), 100);
+    }
   }
 
   onPageChange(event: any): void {
@@ -86,10 +99,10 @@ export class AppointmentsListComponent implements OnInit {
       this.searchAppointmentsByDocument(
         this.documentFilterValue,
         0,
-        this.paginator.pageSize
+        this.pageSize
       );
     } else {
-      this.getAppointments(0, this.paginator.pageSize);
+      this.getAppointments(0, this.pageSize);
     }
   }
 
@@ -111,9 +124,8 @@ export class AppointmentsListComponent implements OnInit {
                 : null, // Manejo de fecha nula
             }));
             this.dataSource.data = formattedAppointments;
-            if (this.paginator) {
-              this.paginator.length = value.totalElements;
-            }
+            this.totalElements = value.totalElements;
+            this.updatePaginator();
           } else {
             this.dataSource.data = [];
             console.error("Invalid response structure", value);
